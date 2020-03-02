@@ -14,9 +14,11 @@ namespace lab1netcore
 
 
             db.Select(connection);
-            //dopisać insert i delete
+            //dopisać update i delete
             //db.Insert(connection, 276, "Bielsko");
-            db.Delete(connection, 276);
+            //db.Delete(connection, 276);
+            db.Update(connection, 276, "BiALA");
+            db.Select(connection);
             connection.Close();
         }
 

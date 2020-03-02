@@ -19,7 +19,7 @@ namespace lab1netcore
         }
         public void Insert(SqlConnection connection, int id, string regionName)
         {
-            var sql = "INSERT INTO Region(RegionId, RegionDescription) VALUES (@id, '@regionName')";
+            var sql = "INSERT INTO Region(RegionId, RegionDescription) VALUES (@id, @regionName)";
             var command = new SqlCommand(sql, connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@regionName", regionName);
@@ -30,11 +30,22 @@ namespace lab1netcore
         }
         public void Delete(SqlConnection connection, int id)
         {
-            var sql = "DELETE FROM Region(RegionId, RegionDescription) WHERE RegionId = @id";
+            var sql = "DELETE FROM Region WHERE RegionID = @id";
             var command = new SqlCommand(sql, connection);
-            //command.Parameters.AddWithValue("@id", id);
-            //command.Parameters.AddWithValue("@regionName", regionName);
+            command.Parameters.AddWithValue("@id", id);
+            
 
+
+            int affected = command.ExecuteNonQuery();
+            Console.WriteLine($"{affected} rows inserted");
+        }
+        
+        public void Update(SqlConnection connection, int id, string newRegionName)
+        {
+            var sql = "Update Region SET RegionDescription=@newRegionName WHERE RegionId=@id";
+            var command = new SqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@newRegionName", newRegionName);
 
             int affected = command.ExecuteNonQuery();
             Console.WriteLine($"{affected} rows inserted");
